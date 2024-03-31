@@ -9,4 +9,4 @@ Python3
 
 ### Acknowledgements
 
-Mike Shah - Python compilation script and SDL2 boilerplate code.
+[Mike Shah](https://mshah.io/) - Python compilation script and SDL2 boilerplate code.
