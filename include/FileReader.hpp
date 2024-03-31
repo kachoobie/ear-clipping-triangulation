@@ -3,6 +3,9 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <sstream>
+
+#include "Point2D.hpp"
 
 class FileReader
 {
@@ -12,5 +15,5 @@ private:
 public:
     FileReader(std::string filePath);
     ~FileReader();
-    std::vector<float> extractPoints();
+    std::vector<Point2D> extractPoints();
 };
