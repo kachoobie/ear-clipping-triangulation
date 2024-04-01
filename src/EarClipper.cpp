@@ -11,13 +11,16 @@ EarClipper::~EarClipper()
 
 void EarClipper::triangulate()
 {
-
+    int numTriangles = 0, numVertices = this->_vertices.size();
+    while (numTriangles < numVertices - 2)
+    {
+        continue;
+    }
 }
 
 float EarClipper::getAngle(Point2D p0, Point2D p1, Point2D p2)
 {
     float m1, m2;
-
     m1 = (p0._y - p1._y) / (p0._x - p1._x);
     m2 = (p2._y - p1._y) / (p2._x - p1._x);
 
