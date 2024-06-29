@@ -1,6 +1,9 @@
 #include <vector>
 #include <cmath>
+#include <stdio.h>
+#include <iostream>
 
+#include "Triangle.hpp"
 #include "Point2D.hpp"
 
 class EarClipper
@@ -13,5 +16,5 @@ private:
 public:
     EarClipper(std::vector<Point2D> vertices);
     ~EarClipper();
-    void triangulate();
+    std::vector<Triangle> triangulate();
 };

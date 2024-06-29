@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "FileReader.hpp"
+#include "EarClipper.hpp"
 
 // #include <SDL2/SDL.h>  // For Linux and Windows
 #include <SDL.h>
@@ -17,9 +18,12 @@
 
 int main()
 {
-    FileReader fr("./shape_files/s1.txt");
+    FileReader fr("./shape_files/s3.txt");
     std::vector<Point2D> points = fr.extractPoints();
     
+    EarClipper ec(points);
+    std::vector<Triangle> triangles = ec.triangulate();
+
     SDL_Window* window=nullptr;
 
     // Initialize the video subsystem.
@@ -60,8 +64,17 @@ int main()
         SDL_SetRenderDrawColor(renderer,0,0,0,SDL_ALPHA_OPAQUE);
         SDL_RenderClear(renderer);
 
+         SDL_SetRenderDrawColor(renderer,255,255,255,SDL_ALPHA_OPAQUE);
+        for (Triangle t : triangles)
+        {
+            Point2D p0 = t._p1, p1 = t._p2, p2 = t._p3;
+            SDL_RenderDrawLine(renderer, p0._x, p0._y, p1._x, p1._y);
+            SDL_RenderDrawLine(renderer, p0._x, p0._y, p2._x, p2._y);
+            SDL_RenderDrawLine(renderer, p2._x, p2._y, p1._x, p1._y);
+        }
+
         // Do our drawing
-        SDL_SetRenderDrawColor(renderer,255,255,255,SDL_ALPHA_OPAQUE);
+        SDL_SetRenderDrawColor(renderer,255,0,0,SDL_ALPHA_OPAQUE);
 
         for (int i = 1; i < points.size(); ++i)
         {

@@ -9,13 +9,30 @@ EarClipper::~EarClipper()
 {
 }
 
-void EarClipper::triangulate()
+std::vector<Triangle> EarClipper::triangulate()
 {
-    int numTriangles = 0, numVertices = this->_vertices.size();
-    while (numTriangles < numVertices - 2)
+    std::vector<Triangle> triangles;
+    std::vector<Point2D> verticesClone = this->_vertices;
+    int numVertices = this->_vertices.size();
+    while (triangles.size() < numVertices - 2)
     {
-        continue;
+        for (int i = 2; i < verticesClone.size(); ++i)
+        {
+            Point2D p0 = verticesClone.at(i - 2), p1 = verticesClone.at(i - 1), p2 = verticesClone.at(i);
+
+            if (!isPointInTriangle(p0, p1, p2))
+            {
+                triangles.push_back(Triangle(p0, p1, p2));
+                verticesClone.erase(verticesClone.begin() + i - 1);
+            }
+        }
+        if (verticesClone.size() == 3)
+        {
+            triangles.push_back(Triangle(verticesClone[0], verticesClone[1], verticesClone[2]));
+        }
     }
+
+    return triangles;
 }
 
 float EarClipper::getAngle(Point2D p0, Point2D p1, Point2D p2)
@@ -46,7 +63,7 @@ bool EarClipper::isPointInTriangle(Point2D p0, Point2D p1, Point2D p2)
         // line 2: p2-----p0
         bool line2 = (p0._x - p2._x) * (p._y - p2._y) > (p0._y - p2._y) * (p._x - p2._x);
 
-        if (line0 || line1 || line2)
+        if (line0 && line1 && line2)
         {
             return true;
         }
