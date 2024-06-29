@@ -20,7 +20,7 @@ std::vector<Triangle> EarClipper::triangulate()
         {
             Point2D p0 = verticesClone.at(i - 2), p1 = verticesClone.at(i - 1), p2 = verticesClone.at(i);
 
-            if (!isPointInTriangle(p0, p1, p2))
+            if (!isPointInTriangle(p0, p1, p2) && getAngle(p0, p1, p2) < 180)
             {
                 triangles.push_back(Triangle(p0, p1, p2));
                 verticesClone.erase(verticesClone.begin() + i - 1);

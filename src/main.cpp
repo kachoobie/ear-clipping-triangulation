@@ -18,7 +18,7 @@
 
 int main()
 {
-    FileReader fr("./shape_files/s3.txt");
+    FileReader fr("./shape_files/s1.txt");
     std::vector<Point2D> points = fr.extractPoints();
     
     EarClipper ec(points);
