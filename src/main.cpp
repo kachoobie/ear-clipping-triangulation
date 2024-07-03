@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
+#include <string>
 
 #include "FileReader.hpp"
 #include "EarClipper.hpp"
@@ -16,9 +17,11 @@
 // clang++ main.cpp -I/Library/Frameworks/SDL2.framework/Headers -F/Library/Frameworks -framework SDL2
 
 
-int main()
+int main(int argc, char* argv[])
 {
-    FileReader fr("./shape_files/s1.txt");
+    std::string fileName = argv[1];
+    std::string filePath = "./shape_files/" + fileName;
+    FileReader fr(filePath);
     std::vector<Point2D> points = fr.extractPoints();
     
     EarClipper ec(points);

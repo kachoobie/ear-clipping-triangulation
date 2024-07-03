@@ -26,6 +26,7 @@ std::vector<Triangle> EarClipper::triangulate()
                 verticesClone.erase(verticesClone.begin() + i - 1);
             }
         }
+
         if (verticesClone.size() == 3)
         {
             triangles.push_back(Triangle(verticesClone[0], verticesClone[1], verticesClone[2]));
@@ -38,12 +39,12 @@ std::vector<Triangle> EarClipper::triangulate()
 float EarClipper::getAngle(Point2D p0, Point2D p1, Point2D p2)
 {
     float m1, m2;
-    m1 = (p0._y - p1._y) / (p0._x - p1._x);
-    m2 = (p2._y - p1._y) / (p2._x - p1._x);
+    m1 = p0._x - p1._x == 0 ? 1.0 : (float)(p0._y - p1._y) / (float)(p0._x - p1._x);
+    m2 = p2._x - p1._x == 0 ? 1.0 : (float)(p2._y - p1._y) / (float)(p2._x - p1._x);;
 
     float theta = std::atan((m1 - m2) / (1 + m1 * m2)) * 180 / M_PI;
 
-    return theta;
+    return std::abs(theta);
 }
 
 bool EarClipper::isPointInTriangle(Point2D p0, Point2D p1, Point2D p2)
